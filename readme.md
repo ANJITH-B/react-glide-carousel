@@ -1,9 +1,15 @@
-# React Smooth Carousel
+# React Glide Carousel 
 
 <div align="center">
+<a href="https://www.react-glide-carousel.anjith.in">🔗 Preview</a>
+   <h3>
+  <a href="https://www.react-glide-carousel.anjith.in">
+     🔴 Live Demo 
+  </a>
+  </h3>
   <br />
-  <a href="https://github.com/ANJITH-B/react-carousel-parallax">
-    <img src="https://img.shields.io/npm/v/react-smooth-carousel?style=flat-square&color=blue" alt="npm version" />
+  <a href="https://github.com/ANJITH-B/react-glide-carousel">
+    <img src="https://img.shields.io/npm/v/react-glide-carousel?style=flat-square&color=blue" alt="npm version" />
   </a>
   <img src="https://img.shields.io/badge/license-MIT-green?style=flat-square" alt="license" />
   <img src="https://img.shields.io/badge/react-%3E%3D16.8.0-blue?style=flat-square&logo=react" alt="react version" />
@@ -32,11 +38,11 @@
 ## 📦 Installation
 
 ```bash
-npm install react-smooth-carousel
+npm install react-glide-carousel
 # or
-yarn add react-smooth-carousel
+yarn add react-glide-carousel
 # or
-pnpm add react-smooth-carousel
+pnpm add react-glide-carousel
 ```
 
 ## 🛠 Usage
@@ -46,8 +52,7 @@ pnpm add react-smooth-carousel
 The simplest way to use the carousel is to pass an array of image URLs and use the built-in control components.
 
 ```tsx
-import { Carousel, NextIcon, PrevIcon, Progress } from 'react-smooth-carousel';
-import 'react-smooth-carousel/dist/index.css'; // Don't forget the CSS!
+import { Carousel, NextIcon, PrevIcon, Progress } from 'react-glide-carousel';
 
 const images = [
   "https://images.unsplash.com/photo-1...",
@@ -73,7 +78,7 @@ const App = () => {
 Want full control? Use the `useCarousel` hook (exposed via context) to build your own custom controls. Note: Your custom controls must be children of the `Carousel` component.
 
 ```tsx
-import { Carousel, useCarousel } from 'react-smooth-carousel';
+import { Carousel, useCarousel } from 'react-glide-carousel';
 
 const CustomControls = () => {
   const { goTo, currentIndex, totalItems, direction } = useCarousel();
@@ -109,6 +114,7 @@ const App = () => {
 | `interval` | `number` | `3000` | Time in ms between slides when `autoPlay` is enabled. |
 | `className` | `string` | `undefined` | Additional CSS class for the root container. |
 | `defaultSlider` | `boolean` | `false` | Enables the default slider. |
+
 
 ## 🤝 Contributing
 
