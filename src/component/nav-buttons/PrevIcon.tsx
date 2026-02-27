@@ -6,7 +6,7 @@ export const PrevIcon = ({ className }: { className?: string }) => {
   return (
     <button
       onClick={() => goTo("prev")}
-      className={cn("cursor-pointer backdrop-blur-xs bg-[#8e8e8e78] border-[#a7a7a7] rounded-full w-[35px] h-[35px] p-1.5 pt-2 border", className)}
+      className={cn("cursor-pointer backdrop-blur-sm bg-[#8e8e8e78] border-[#a7a7a7] rounded-full w-[35px] h-[35px] p-1.5 pt-2 border", className)}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

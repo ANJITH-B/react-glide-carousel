@@ -1,6 +1,6 @@
 {
-  "name": "react-smooth-carousel",
-  "version": "0.0.6",
+  "name": "react-glide-carousel",
+  "version": "0.0.11",
   "description": "react smooth carousel with easing parallax effect on sliding ",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -10,7 +10,8 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./index.css": "./dist/index.css"
   },
   "files": [
     "dist"
@@ -21,10 +22,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ANJITH-B/react-carousel-parallax.git"
+    "url": "git+https://github.com/ANJITH-B/react-glide-carousel.git"
   },
   "bugs": {
-    "url": "https://github.com/ANJITH-B/react-carousel-parallax/issues"
+    "url": "https://github.com/ANJITH-B/react-glide-carousel/issues"
   },
   "keywords": [
     "carousel",
@@ -37,7 +38,11 @@
     "smooth-slider",
     "parallax-slider",
     "react-smooth-slider",
-    "react-smooth-carousel"
+    "react-smooth-carousel",
+    "easing-slider",
+    "parallax-slider",
+    "react-glide-carousel",
+    "react-glide-slider"
   ],
   "author": "anjith b",
   "license": "MIT",

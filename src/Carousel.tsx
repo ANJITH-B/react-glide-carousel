@@ -35,6 +35,8 @@ export const Carousel = ({
 
     const isNavigatingRef = useRef(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const pendingDirectionRef = useRef<"next" | "prev" | null>(null);
+
 
     useEffect(() => {
         const preloadImages = async () => {
@@ -53,8 +55,12 @@ export const Carousel = ({
         preloadImages();
     }, [items]);
 
+
     const goTo = useCallback((newDirection: "next" | "prev") => {
-        if (isNavigatingRef.current) return;
+        if (isNavigatingRef.current) {
+            pendingDirectionRef.current = newDirection;
+            return;
+        }
         const dir = newDirection === "prev" ? -1 : 1;
         setDirection(dir);
         isNavigatingRef.current = true;
@@ -68,6 +74,11 @@ export const Carousel = ({
         if (timeoutRef.current) clearTimeout(timeoutRef.current);
         timeoutRef.current = setTimeout(() => {
             isNavigatingRef.current = false;
+            if (pendingDirectionRef.current) {
+                const nav = pendingDirectionRef.current;
+                pendingDirectionRef.current = null;
+                goTo(nav);
+            }
         }, 800);
 
     }, [items.length]);
@@ -77,7 +88,7 @@ export const Carousel = ({
 
         const timer = setInterval(() => goTo('next'), interval);
         return () => clearInterval(timer);
-    }, [autoPlay, interval, items.length, allImagesLoaded, goTo]);
+    }, [autoPlay, interval, items.length, allImagesLoaded, goTo, currentIndex]);
 
 
 

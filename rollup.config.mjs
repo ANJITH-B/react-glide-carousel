@@ -22,7 +22,10 @@ export default {
   plugins: [
     resolve(),
     commonjs(),
-    postcss(),
+    postcss({
+      extract: "index.css",
+      minimize: true,
+    }),
     typescript({
       tsconfig: "./tsconfig.json",
       declaration: true,

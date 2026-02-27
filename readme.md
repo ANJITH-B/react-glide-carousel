@@ -53,6 +53,7 @@ The simplest way to use the carousel is to pass an array of image URLs and use t
 
 ```tsx
 import { Carousel, NextIcon, PrevIcon, Progress } from 'react-glide-carousel';
+import 'react-glide-carousel/index.css';
 
 const images = [
   "https://images.unsplash.com/photo-1...",
