@@ -18,7 +18,7 @@ export default {
       exports: "named",
     },
   ],
-  external: ["react", "react-dom"],
+  external: ["react", "react-dom", "framer-motion"],
   plugins: [
     resolve(),
     commonjs(),
