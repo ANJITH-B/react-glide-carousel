@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
 
 export default {
   input: "src/index.ts",
@@ -18,14 +17,17 @@ export default {
       exports: "named",
     },
   ],
-  external: ["react", "react-dom", "framer-motion"],
+  external: ["react"],
   plugins: [
     resolve(),
     commonjs(),
-    postcss({
-      extract: "index.css",
-      minimize: true,
-    }),
+    {
+      // CSS is generated separately by @tailwindcss/cli; strip imports from the JS bundle
+      name: "strip-css",
+      transform(_, id) {
+        if (id.endsWith(".css")) return { code: "", map: null };
+      },
+    },
     typescript({
       tsconfig: "./tsconfig.json",
       declaration: true,

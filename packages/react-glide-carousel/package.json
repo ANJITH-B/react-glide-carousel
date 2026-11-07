@@ -17,7 +17,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c ",
+    "build": "tailwindcss --input src/style.css --output dist/index.css --minify && rollup -c",
     "test": "echo 'No test specified'"
   },
   "repository": {
@@ -36,34 +36,24 @@
     "react",
     "banner",
     "smooth-slider",
-    "parallax-slider",
     "react-smooth-slider",
     "react-smooth-carousel",
     "easing-slider",
-    "parallax-slider",
     "react-glide-carousel",
     "react-glide-slider"
   ],
   "author": "anjith b",
   "license": "MIT",
   "peerDependencies": {
-    "framer-motion": ">=12.0.0",
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=16.8.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@tailwindcss/postcss": "^4.1.18",
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/cli": "^4.1.18",
     "@types/react": "^18.2.0",
-    "autoprefixer": "^10.4.23",
-    "postcss": "^8.5.6",
     "rollup": "^4.53.3",
-    "rollup-plugin-postcss": "^4.0.2",
-    "tailwindcss": "^4.1.18",
-    "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {

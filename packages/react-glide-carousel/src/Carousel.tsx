@@ -1,22 +1,18 @@
-
-import { useState, useEffect, type ReactNode, useRef, useCallback } from "react";
+import { useState, useEffect, type ReactNode, type CSSProperties, useRef, useCallback } from "react";
 import { CarouselContext } from "./context/carouselContext";
 import ImageSlider from "./component/image-slider/ImageSlider";
 import "./style.css";
 import { cn } from "./lib/utils";
-
-export { default as ImageSlider } from "./component/image-slider/ImageSlider";
-export { default as Progress } from "./component/progress-bar/ProgressBar";
-export { NextIcon } from "./component/nav-buttons/NextIcon";
-export { PrevIcon } from "./component/nav-buttons/PrevIcon";
-export * from "./context/carouselContext";
 
 interface CarouselProps {
     children?: ReactNode;
     items: string[];
     autoPlay?: boolean;
     interval?: number;
+    /** Applied to the children overlay div */
     className?: string;
+    /** Applied to the root container div — use for width/height/border-radius */
+    style?: CSSProperties;
     defaultSlider?: boolean;
 }
 
@@ -26,6 +22,7 @@ export const Carousel = ({
     autoPlay = false,
     interval = 3000,
     className,
+    style,
     defaultSlider = true,
 }: CarouselProps) => {
 
@@ -37,8 +34,9 @@ export const Carousel = ({
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const pendingDirectionRef = useRef<"next" | "prev" | null>(null);
 
-
+    // Fix #3: reset allImagesLoaded before each new preload batch
     useEffect(() => {
+        setAllImagesLoaded(false);
         const preloadImages = async () => {
             const promises = items.map((src) => {
                 return new Promise((resolve) => {
@@ -55,6 +53,12 @@ export const Carousel = ({
         preloadImages();
     }, [items]);
 
+    // Fix #4: clean up navigation timeout on unmount
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
+    }, []);
 
     const goTo = useCallback((newDirection: "next" | "prev") => {
         if (isNavigatingRef.current) {
@@ -80,32 +84,27 @@ export const Carousel = ({
                 goTo(nav);
             }
         }, 800);
-
     }, [items.length]);
 
     useEffect(() => {
-        if (!autoPlay && !allImagesLoaded) return;
-
-        const timer = setInterval(() => goTo('next'), interval);
-        return () => clearInterval(timer);
+        if (!autoPlay || !allImagesLoaded) return;
+        // setTimeout + currentIndex dep: any navigation (manual or auto) resets
+        // the full countdown, preventing autoPlay from firing right after a click
+        const timer = setTimeout(() => goTo("next"), interval);
+        return () => clearTimeout(timer);
     }, [autoPlay, interval, items.length, allImagesLoaded, goTo, currentIndex]);
-
-
 
     return (
         <CarouselContext.Provider
             value={{ currentIndex, totalItems: items.length, goTo, items, direction, interval }}
         >
-            <div className={`relative w-full h-full overflow-hidden`}>
-                <div className={cn(`absolute z-10 w-full h-full `, className)}>
+            {/* Fix #5: removed duplicate re-exports (they live in index.ts) */}
+            {/* Fix #6: removed redundant hidden preload <img> tags           */}
+            <div className={cn("relative w-full h-full overflow-hidden", className)} style={style}>
+                <div className={cn("absolute z-10 w-full h-full")}>
                     {children}
                 </div>
                 {defaultSlider && <ImageSlider />}
-                <div className="hidden">
-                    {items.map((src, i) => (
-                        <img key={i} src={src} alt="..." loading="eager" decoding="sync" />
-                    ))}
-                </div>
             </div>
         </CarouselContext.Provider>
     );
