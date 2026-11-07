@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@source "../../../packages/react-glide-carousel/src";
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}

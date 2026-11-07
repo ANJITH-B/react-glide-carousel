@@ -1,0 +1,21 @@
+.test-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.test-wrapper h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.test-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  opacity: 0.6;
+}

@@ -2,9 +2,9 @@
   "name": "react-glide-carousel-monorepo",
   "private": true,
   "scripts": {
-    "dev:demo": "pnpm --filter demo dev",
+    "dev:test-app": "pnpm --filter test-app dev",
     "build:package": "pnpm --filter react-glide-carousel build",
-    "build:demo": "pnpm --filter demo build"
+    "build:test-app": "pnpm --filter test-app build"
   },
   "devDependencies": {
     "typescript": "^5.0.0"
