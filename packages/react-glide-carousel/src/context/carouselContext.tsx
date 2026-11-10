@@ -5,8 +5,10 @@ export type CarouselContextType = {
     totalItems: number;
     goTo: (newDirection: "next" | "prev") => void;
     items: string[];
+    alts: string[];
     direction: number;
     interval: number;
+    isPlaying: boolean;
 };
 
 export const CarouselContext = createContext<CarouselContextType | null>(null);

@@ -24,21 +24,22 @@
     "type": "git",
     "url": "git+https://github.com/ANJITH-B/react-glide-carousel.git"
   },
+  "homepage": "https://glide.anjithb.space",
   "bugs": {
     "url": "https://github.com/ANJITH-B/react-glide-carousel/issues"
   },
   "keywords": [
+    "react",
     "carousel",
     "slider",
     "image-slider",
+    "easing-slider",
     "image-carousel",
     "parallax-slider",
-    "react",
     "banner",
     "smooth-slider",
     "react-smooth-slider",
     "react-smooth-carousel",
-    "easing-slider",
     "react-glide-carousel",
     "react-glide-slider"
   ],

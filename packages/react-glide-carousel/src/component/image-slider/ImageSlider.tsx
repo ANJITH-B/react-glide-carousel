@@ -8,7 +8,7 @@ const EASING = "cubic-bezier(0.43, 0.13, 0.23, 0.96)";
 type Props = { className?: string };
 
 const ImageSlider = ({ className }: Props) => {
-    const { items: images, currentIndex, direction } = useCarousel();
+    const { items: images, alts, currentIndex, direction } = useCarousel();
     const [prevIndex, setPrevIndex] = useState<number | null>(null);
     const prevCurrentRef = useRef(currentIndex);
     const outRef = useRef<HTMLDivElement>(null);
@@ -58,10 +58,12 @@ const ImageSlider = ({ className }: Props) => {
             { duration: DURATION, easing: "ease-in-out", fill: "both" }
         );
 
-        animsRef.current = [a1, a2, a3, a4];
+        const thisSet = [a1, a2, a3, a4];
+        animsRef.current = thisSet;
 
         a3.onfinish = () => {
-            animsRef.current.forEach(a => a.cancel());
+            if (animsRef.current !== thisSet) return;
+            thisSet.forEach(a => a.cancel());
             animsRef.current = [];
             setPrevIndex(null);
         };
@@ -79,7 +81,7 @@ const ImageSlider = ({ className }: Props) => {
                     <div ref={outInnerRef} className="absolute inset-0">
                         <img
                             src={images[prevIndex]}
-                            alt={`Slide ${prevIndex + 1}`}
+                            alt={alts[prevIndex] ?? `Slide ${prevIndex + 1}`}
                             className="object-cover w-full h-full"
                             loading="eager"
                             decoding="sync"
@@ -91,7 +93,7 @@ const ImageSlider = ({ className }: Props) => {
                 <div ref={inInnerRef} className="absolute inset-0">
                     <img
                         src={images[currentIndex]}
-                        alt={`Slide ${currentIndex + 1}`}
+                        alt={alts[currentIndex] ?? `Slide ${currentIndex + 1}`}
                         className="object-cover w-full h-full"
                         loading="eager"
                         decoding="sync"
