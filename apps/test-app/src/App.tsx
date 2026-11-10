@@ -1,62 +1,66 @@
-import {
-  Carousel,
-  ImageSlider,
-  NextIcon,
-  PrevIcon,
-  Progress,
-} from "react-glide-carousel";
+import { Carousel } from "react-glide-carousel";
 import './App.css';
 
-const IMAGES = [
-  "https://picsum.photos/seed/glide1/1200/600",
-  "https://picsum.photos/seed/glide2/1200/600",
-  "https://picsum.photos/seed/glide3/1200/600",
-  "https://picsum.photos/seed/glide4/1200/600",
+const SLIDES = [
+  { src: "https://picsum.photos/seed/glide1/1200/600", caption: "Mountain peaks wrapped in morning mist" },
+  { src: "https://picsum.photos/seed/glide2/1200/600", caption: "Golden hour over the coastal cliffs" },
+  { src: "null", caption: "Ancient forest paths in autumn light" },
+  { src: "https://picsum.photos/seed/glide4/1200/600", caption: "" },
+  { src: "https://picsum.photos/seed/glide5/1200/600", caption: "Desert dunes at the edge of twilight" },
+  { src: "https://picsum.photos/seed/glide6/1200/600", caption: "Frozen lake reflecting a winter sky" },
 ];
 
-function BasicCarousel() {
+const IMAGES = SLIDES.map(s => s.src);
+const CAPTIONS = SLIDES.map(s => s.caption);
+
+function CaptionCarousel() {
+  return (
+    <div className="p-5">
+      <h2 className="test-label">Caption — blur variant</h2>
+      <Carousel items={IMAGES} animation="scale" autoPlay navigation className="w-[600px] h-[400px]">
+        <Carousel.Bottom align="left" gradient="bg-gradient-to-t from-black/40 to-transparent">
+          <Carousel.Caption titles={CAPTIONS} variant="slide-up1" className="w-1/2" />
+          <Carousel.Progress />
+        </Carousel.Bottom>
+      </Carousel>
+
+    </div>
+  );
+}
+
+function CaptionSlideUpCarousel() {
   return (
     <div>
-      <h2 className="test-label">Default slider (autoPlay off)</h2>
-      <Carousel items={IMAGES} autoPlay={false} className="w-[600px] h-[400px]">
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
-          <Progress />
-        </div>
-        <div className="absolute inset-y-0 left-3 flex items-center z-20">
-          <PrevIcon />
-        </div>
-        <div className="absolute inset-y-0 right-3 flex items-center z-20">
-          <NextIcon />
-        </div>
+      <h2 className="test-label">Caption — slide-up variant</h2>
+      <Carousel items={IMAGES} navigation autoPlay interval={4000} className="w-[600px] h-[400px]">
+        <Carousel.Caption
+          titles={CAPTIONS}
+          variant="random"
+          align="center"
+          className="text-white text-2xl w-2/3 font-extralight"
+        />
       </Carousel>
     </div>
   );
 }
 
-const Upcoming = () => {
+function BasicCarousel() {
   return (
-  <Carousel items={IMAGES} navigation autoPlay className="w-[600px] h-[400px]">
-    <Carousel.Slider algin='center'/>
-    <Carousel.Progress algin="bottom"/>
-    <Carousel.Preview algin="right"/> 
-  </Carousel>
-  )
+    <div>
+      <h2 className="test-label">Default slider (autoPlay off)</h2>
+      <Carousel animation="scale" items={IMAGES} hoverToSlide navigation className="w-[600px] h-[400px]">
+        <Carousel.Progress align="bottom" />
+      </Carousel>
+    </div>
+  );
 }
 
 function AutoPlayCarousel() {
   return (
     <div>
       <h2 className="test-label">AutoPlay (5 s interval)</h2>
-      <Carousel items={IMAGES} autoPlay interval={5000} className="w-[600px] h-[400px]">
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20">
-          <Progress />
-        </div>
-        <div className="absolute inset-y-0 left-3 flex items-center z-20">
-          <PrevIcon />
-        </div>
-        <div className="absolute inset-y-0 right-3 flex items-center z-20">
-          <NextIcon />
-        </div>
+      <Carousel items={IMAGES} autoPlay interval={5000} navigation className="w-[600px] h-[400px]">
+        <Carousel.Progress align="bottom" />
       </Carousel>
     </div>
   );
@@ -66,33 +70,23 @@ function CustomSliderCarousel() {
   return (
     <div>
       <h2 className="test-label">defaultSlider=false — custom slide content</h2>
-      
-      <Carousel 
-      className="w-[600px] h-[400px]"
+      <Carousel
+        className="w-[600px] h-[400px]"
         defaultSlider={false}
         items={IMAGES}
         autoPlay
         interval={5000}
       >
-        <ImageSlider 
-          className="w-full h-[calc(100%-45px)] border border-gray-600" 
-        />
-        <div 
-          className="flex flex-row justify-center items-center 
-          w-full pt-5 gap-5"
-        >
-          <PrevIcon className="w-6 h-6 p-1" />
-          <div className="bg-zinc-800 rounded-full px-3 p-2 w-1/3">
-            <Progress className="w-full" />
+        <Carousel.ScaleSlider className="w-full h-[calc(100%-45px)] border border-gray-600" />
+        <div className="flex flex-row justify-center items-center w-full pt-5 gap-5">
+          <div className="backdrop-blur-3xl bg-gray-100 rounded-full px-3 p-2">
+            <Carousel.Progress trackColor="#d1d5db" fillColor="#111827" />
           </div>
-          <NextIcon className="w-6 h-6 p-1" />
         </div>
       </Carousel>
     </div>
   );
 }
-
- 
 
 function CustomSliderProgressBelow() {
   return (
@@ -101,20 +95,10 @@ function CustomSliderProgressBelow() {
         items={IMAGES}
         autoPlay
         interval={5000}
+        navigation
         className="w-full h-full"
       >
-        <PrevIcon 
-          className="w-8 h-8 p-1.5 absolute left-5 top-1/2 
-          -translate-y-1/2 bg-white/30 rounded-full" 
-        />
-        <NextIcon className="w-8 h-8 p-1.5 absolute right-5 top-1/2 
-          -translate-y-1/2 bg-white/30 rounded-full" />
-        <div 
-          className="absolute flex items-center justify-center 
-          bottom-8 w-full"
-        >
-          <Progress className="w-1/3" />
-        </div>
+        <Carousel.Progress align="left" className="bottom-5 w-1/3 gap-1" />
       </Carousel>
     </div>
   );
@@ -122,12 +106,14 @@ function CustomSliderProgressBelow() {
 
 export default function App() {
   return (
-    <main className="test-wrapper">
+    <main className=" max-w-fit mx-auto flex flex-col gap-10">
       <h1>react-glide-carousel — test app</h1>
-      <BasicCarousel />
-      <AutoPlayCarousel />
-      <CustomSliderCarousel />
-      <CustomSliderProgressBelow/>
+      <CaptionCarousel />
+      {/* <CaptionSlideUpCarousel /> */}
+      {/* <CustomSliderCarousel /> */}
+      {/* <BasicCarousel /> */}
+      {/* <AutoPlayCarousel /> */}
+      {/* <CustomSliderProgressBelow /> */}
     </main>
   );
 }
