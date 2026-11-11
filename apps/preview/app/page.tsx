@@ -1,14 +1,31 @@
-'use client'
-import { Carousel } from 'react-glide-carousel';
-import 'react-glide-carousel/index.css';
+import CodeBlock from '@/components/CodeBlock';
+import { DefaultDemo, ScaleDemo, BelowNavDemo, HoverDemo } from '@/components/Demos';
+import { installCode, defaultExample, scaleExample, belowNavExample, hoverExample } from '@/utils/snippets';
 
 export default function Home() {
   return (
-    <Carousel items={['https://picsum.photos/seed/glide1/1200/600','https://picsum.photos/1200/600','https://picsum.photos/seed/glide1/1200/600']} autoPlay navigation className="w-[800px] h-[500px]">
-      <Carousel.Bottom align="center">
-        <Carousel.Caption titles={['Mountain peaks', 'Ocean depths', 'Forest trails']} variant="blur" />
-        <Carousel.Progress />
-      </Carousel.Bottom>
-    </Carousel>
+    <div className="w-full flex justify-center items-center min-h-screen py-40 bg-[#121212]">
+      <div className="w-[600px] flex flex-col gap-6">
+
+        <CodeBlock tabs={[{ tabName: 'npm', code: installCode, language: 'bash' }]} />
+
+        <h4 className="italic text-white/40 mt-16"># Default</h4>
+        <DefaultDemo />
+        <CodeBlock tabs={[{ tabName: 'App.tsx', code: defaultExample }]} />
+
+        <h4 className="italic text-white/40 mt-16"># Scale</h4>
+        <ScaleDemo />
+        <CodeBlock tabs={[{ tabName: 'App.tsx', code: scaleExample }]} />
+
+        <h4 className="italic text-white/40 mt-16"># Navigation Below</h4>
+        <BelowNavDemo />
+        <CodeBlock tabs={[{ tabName: 'App.tsx', code: belowNavExample }]} />
+
+        <h4 className="italic text-white/40 mt-16"># Hover to Slide</h4>
+        <HoverDemo />
+        <CodeBlock tabs={[{ tabName: 'App.tsx', code: hoverExample }]} />
+
+      </div>
+    </div>
   );
 }
