@@ -12,7 +12,7 @@
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "react-glide-carousel": "file:react-glide-carousel-0.0.12.tgz",
+    "react-glide-carousel": "0.1.0",
     "shiki": "^4.6.0"
   },
   "devDependencies": {
