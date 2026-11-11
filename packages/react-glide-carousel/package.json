@@ -1,7 +1,7 @@
 {
   "name": "react-glide-carousel",
-  "version": "0.0.12",
-  "description": "react smooth carousel with easing parallax effect on sliding ",
+  "version": "0.1.0",
+  "description": "react smooth carousel with easing parallax / scale effect on sliding ",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
